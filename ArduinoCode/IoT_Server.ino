@@ -40,11 +40,11 @@ void setup() {
   Serial.println("WiFi connected..!");
   Serial.print("Got IP: ");  Serial.println(WiFi.localIP());
   
-  /*server.on("/", handle_OnConnect);
+  server.on("/", handle_OnConnect);
   server.onNotFound(handle_NotFound);
 
   server.begin();
-  Serial.println("HTTP server started");*/
+  Serial.println("HTTP server started");
   
   Serial.print("Initializing pulse oximeter..");
 
@@ -57,7 +57,7 @@ void setup() {
   }
 }
 void loop() {
-  //server.handleClient();
+  server.handleClient();
   pox.update();
   if (millis() - tsLastReport > REPORTING_PERIOD_MS) {
 
@@ -75,14 +75,14 @@ void loop() {
     Serial.println();
     tsLastReport = millis();
   }
-  if(WiFi.status() == WL_CONNECTED)
+  /*if(WiFi.status() == WL_CONNECTED)
   {
     HTTPClient http;
     http.begin("http://192.168.0.3/updateValue");
     http.addHeader("Content-Type","text/plain");
-    /*string payload = to_string(BPM);
+    string payload = to_string(BPM);
     payload += " ";
-    paload += tostring(SpO2);*/
+    paload += tostring(SpO2);
     sprintf(payload,"%f %f",BPM,SpO2);
     int code = http.POST(payload);
     String res = http.getString();
@@ -91,7 +91,7 @@ void loop() {
   else
   {
     Serial.println("Error in WiFi Connection");  
-  }
+  }*/
 }
 
 void handle_OnConnect() {
